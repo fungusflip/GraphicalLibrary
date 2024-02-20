@@ -114,7 +114,7 @@
     <LibraryPath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\stb\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\OpenGLGame;$(SolutionDir)\Maths;$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\include;$(SolutionDir)ext\glad\include;$(SolutionDir)ext\stb\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)ext\glfw-3.3.9.bin.WIN64\lib-vc2022;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -213,6 +213,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ext\glad\src\glad.c" />
+    <ClCompile Include="Camera.hpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="OpenGLGame.cpp" />
@@ -223,6 +224,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object.hpp" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Shader.h" />

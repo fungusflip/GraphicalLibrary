@@ -1,17 +1,20 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <Object.hpp>
+#include <Window.h>
 #include <iostream>
+#include <Vector3.h>
 
+/*
+//this is suppose to be a hpp?
 class Camera :public Object{
-    Window* window
+    Window* window;
 public:
+
     Camera(GLFWwindow* window, int width, int height) : m_window(window), m_width(width), m_height(height) {
+
         // Initialize camera properties
-        m_position = glm::vec3(0.0f, 0.0f, 3.0f);
-        m_front = glm::vec3(0.0f, 0.0f, -1.0f);
-        m_up = glm::vec3(0.0f, 1.0f, 0.0f);
+        m_position = Vector3(0.0f, 0.0f, 3.0f);
+        m_front = Vector3(0.0f, 0.0f, -1.0f);
+        m_up = Vector3(0.0f, 1.0f, 0.0f);
         m_yaw = -90.0f;
         m_pitch = 0.0f;
         m_movementSpeed = 2.5f;
@@ -30,6 +33,7 @@ public:
             m_position -= glm::normalize(glm::cross(m_front, m_up)) * m_movementSpeed * deltaTime;
         if (glfwGetKey(m_window, GLFW_KEY_D) == GLFW_PRESS)
             m_position += glm::normalize(glm::cross(m_front, m_up)) * m_movementSpeed * deltaTime;
+
 
         // Handle mouse input for camera rotation
         double xPos, yPos;
@@ -100,3 +104,4 @@ private:
         m_front = glm::normalize(front);
     }
 };
+*/
