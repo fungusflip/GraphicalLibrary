@@ -28,27 +28,32 @@ public:
         Matrix4x4 matTranslation = Matrix4x4::Translation(position);
         Matrix4x4 matRotation = Matrix4x4::Rotation(rotation);
 
+
+
         Matrix4x4 transform = matTranslation * matRotation;
-
-
-        //TODO ADD REFERENCE TO WINDOW for aspect ratio 
-        Matrix4x4 projection = Matrix4x4::Perspective(45, 800 / 600, 0.1, 100.0f);
-        
-        Matrix4x4 view = Matrix4x4::Translation(Vector3(0, 0, -3));
-
         int transformLocation = glGetUniformLocation(
             material->shaderProgram, "transform");
         glUniformMatrix4fv(transformLocation, 1, GL_TRUE, &transform.m11);
 
 
+
+        Matrix4x4 model = Matrix4x4::Translation(position) * Matrix4x4::Rotation(rotation);
+        int modelLocation = glGetUniformLocation(
+            material->shaderProgram, "model");
+        glUniformMatrix4fv(modelLocation, 1, GL_TRUE, &model.m11);
+
+
+        Matrix4x4 view = Matrix4x4::Translation(Vector3(0, 0, -3));
         int ViewLocation = glGetUniformLocation(
             material->shaderProgram, "view");
         glUniformMatrix4fv(ViewLocation, 1, GL_TRUE, &view.m11);
 
-
+        Matrix4x4 projection = Matrix4x4::Perspective(45, 800 / 600, 0.1, 100.0f);
         int projectionLocation = glGetUniformLocation(
             material->shaderProgram, "projection");
         glUniformMatrix4fv(projectionLocation, 1, GL_TRUE, &projection.m11);
+
+
 
         glActiveTexture(GL_TEXTURE0);
 

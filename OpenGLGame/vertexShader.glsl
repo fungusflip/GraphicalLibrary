@@ -7,10 +7,14 @@ out vec4 vertexColor;
 out vec2 texCoord; // << we want to output a tex Coord
 
 uniform mat4 transform;
+uniform mat4 projection;
+uniform mat4 view;
+uniform mat4 model;
+
 
 void main()
 {
-    gl_Position = transform * vec4(aPos.xyz, 1);
+    gl_Position = projection * view * model * vec4(aPos.xyz, 1);
     vertexColor = aCol;
     //texCoord = vec2(aPos.x + horizontalOffset, aPos.y); // we do output the value
     texCoord = aTexCoord;

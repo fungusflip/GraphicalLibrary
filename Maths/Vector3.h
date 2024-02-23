@@ -1,52 +1,66 @@
 #pragma once
-#include <corecrt_math.h>
+
+#include <cmath> // Include the cmath header for math functions
 
 class Vector3
 {
 public:
     float x, y, z;
-    Vector3(float x, float y, float z) : x{ x }, y{ y }, z{ z } { }
+
+    // Constructor
+    Vector3(float x, float y, float z) : x{ x }, y{ y }, z{ z } {}
 
     // Equality operator 
     bool operator==(const Vector3& other) const {
-        // fix the equal operator implementation
-        // The equal operator implementation here is just for x and not for y and z 
         return x == other.x && y == other.y && z == other.z;
     }
 
     // Inequality operator
     bool operator!=(const Vector3& other) const {
-        return !(*this == other);// Return the code i wrote on top not to be equal 
-        // return x !== other.x && y !== other.y && z !== other.z;Exactly like on the top but top code is cleaner 
+        return !(*this == other);
     }
 
-    // TODO:
     // Negate Operator
-    Vector3 operator-() const { 
-        // return new vector where all components are negated
+    Vector3 operator-() const {
         return Vector3(-x, -y, -z);
     }
 
+    // Addition operator
     Vector3 operator+(const Vector3& other) const {
         return Vector3(x + other.x, y + other.y, z + other.z);
-        // We do not use && cause it uses for bool and here is not a bool 
     }
 
+    // Subtraction operator
     Vector3 operator-(const Vector3& other) const {
         return Vector3(x - other.x, y - other.y, z - other.z);
     }
 
+    // Scalar multiplication operator
     Vector3 operator*(float k) const {
         return Vector3(x * k, y * k, z * k);
     }
 
+    // Scalar division operator
     Vector3 operator/(float k) const {
         return Vector3(x / k, y / k, z / k);
     }
 
+    // Magnitude calculation
     float Magnitude() const {
-        return sqrt(x * x + y * y + z * z);
+        return std::sqrt(x * x + y * y + z * z);
     }
 
+    // Normalize method
+    Vector3 Normalize() const {
+        float mag = Magnitude();
+        if (mag != 0) {
+            return *this / mag;
+        }
+        return *this; // Prevent division by zero
+    }
 
+    // Dot product method
+    float Dot(const Vector3& other) const {
+        return x * other.x + y * other.y + z * other.z;
+    }
 };

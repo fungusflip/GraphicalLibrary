@@ -23,11 +23,9 @@ int main() {
     Texture face{ "awesomeface.png", GL_TEXTURE0 };
 
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER };
-    Shader orangeShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER };
     Shader textureShader{ "textureFragmentShader.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
-    Material orange{ vertexShader, orangeShader };
     Material textured{ vertexShader, textureShader };
 
     GameObject cube{ &textured, Mesh::createCube(), &wall };
