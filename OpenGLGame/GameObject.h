@@ -3,7 +3,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Texture.h"
-#include "../Maths/Matrix4x4.h"
+#include "Matrix4x4.h"'
 
 class GameObject
 {
@@ -15,6 +15,21 @@ public:
     float red;
     Vector3 position = Vector3(0,0,0);
     Vector3 rotation = Vector3(0,0,0);
+
+    const float radius = 10.0f;
+    float time = glfwGetTime();
+    float camX = sin(time) * radius;
+    float camZ = cos(time) * radius;
+
+    Vector3 cameraPos = Vector3(0.0f, 0.0f, 3.0f);
+    Vector3 cameraTarget = Vector3(0, 0, 0);
+    Vector3 cameraDirection = Vector3(0, 0, 0);
+    Vector3 up = Vector3(0, 1, 0);
+
+    // Initialize Cameraright and CameraUp using Vector3 and Matrix4x4 functions
+    Vector3 Cameraright = Vector3::Cross(up, cameraDirection).Normalize();
+    Vector3 CameraUp = Vector3::Cross(cameraDirection, Cameraright);
+
     GameObject (Material* _material, const Mesh* _mesh, Texture*_texture = nullptr) {
         mesh = _mesh;
         material = _material;

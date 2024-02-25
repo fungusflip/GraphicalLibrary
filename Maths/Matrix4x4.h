@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector3.h"
+#include "cmath"
 
 struct Matrix4x4;
 Matrix4x4 operator *(const Matrix4x4& a, const Matrix4x4& b);
@@ -11,7 +12,7 @@ struct Matrix4x4 {
     float m41, m42, m43, m44;
 
     Matrix4x4(float m11, float m12, float m13, float m14, float m21, float m22, float m23, float m24, float m31, float m32, float m33, float m34, float m41, float m42, float m43, float m44)
-        : m11{m11},m12{m12},m13{m13},m14{m14},
+        : m11{ m11 }, m12{ m12 }, m13{ m13 }, m14{ m14 },
         m21{ m21 }, m22{ m22 }, m23{ m23 }, m24{ m24 },
         m31{ m31 }, m32{ m32 }, m33{ m33 }, m34{ m34 },
         m41{ m41 }, m42{ m42 }, m43{ m43 }, m44{ m44 }
@@ -19,9 +20,9 @@ struct Matrix4x4 {
 
     static Matrix4x4 Identity() {
         return Matrix4x4(1, 0, 0, 0,
-                        0, 1, 0, 0,
-                        0, 0, 1, 0,
-                        0, 0, 0, 1);
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1);
     }
 
     static Vector3 Transform(const Matrix4x4& m, const Vector3& v, float w = 1) {
@@ -88,6 +89,22 @@ struct Matrix4x4 {
             0.0f, 0.0f, Q, Q * nearPlane,
             0.0f, 0, -1, 0.0f);
     }
+
+    static Matrix4x4 LookAt(const Vector3& eye, const Vector3& target, const Vector3& up) {
+        Vector3 zAxis = (eye - target).Normalize();
+        Vector3 xAxis = Vector3::Cross(up, zAxis).Normalize();
+        Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
+
+        Matrix4x4 viewMatrix(
+            xAxis.x, yAxis.x, zAxis.x, 0,
+            xAxis.y, yAxis.y, zAxis.y, 0,
+            xAxis.z, yAxis.z, zAxis.z, 0,
+            -Vector3::Dot(xAxis, eye), -Vector3::Dot(yAxis, eye), -Vector3::Dot(zAxis, eye), 1
+        );
+
+        return viewMatrix;
+    }
+
 };
 
 
