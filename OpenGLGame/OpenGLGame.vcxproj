@@ -213,7 +213,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\ext\glad\src\glad.c" />
-    <ClCompile Include="Camera.hpp" />
+    <ClCompile Include="Camera.h" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="OpenGLGame.cpp" />

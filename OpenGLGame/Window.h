@@ -33,6 +33,8 @@ public:
             return; // We don't return -1 anymore, instead we leave success at false
         }
 
+        
+
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -69,6 +71,24 @@ public:
         // Initialization ends here
         success = true; // We set success to be true
     }
+
+    /*
+    *                                                                 Math is not mathing glm or figure out your own logic lol
+    void processInput(GLFWwindow* window)
+    {
+
+        const float cameraSpeed = 0.05f; // adjust accordingly
+        if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+            cameraPos += cameraSpeed * cameraFront;
+        if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+            cameraPos -= cameraSpeed * cameraFront;
+        if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+            cameraPos -= Vector3::Cross(cameraFront, cameraUp).Normalize * cameraSpeed;
+        if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+            cameraPos += (Vector3::Cross(cameraFront, cameraUp)) * cameraSpeed;
+    }
+    */
+
 
     bool shouldClose() {
         return glfwWindowShouldClose(this->window);

@@ -42,7 +42,7 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.hpp">
+    <ClCompile Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
