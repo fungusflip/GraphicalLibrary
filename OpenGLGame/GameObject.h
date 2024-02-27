@@ -46,8 +46,8 @@ public:
 
         const float radius = 10.0f;
         float time = glfwGetTime();
-        float camX = sin(time) * radius;
-        float camZ = cos(time) * radius;
+        float camX = radius;
+        float camZ = radius;
 
         Vector3 cameraPos = Vector3(0.0f, 0.0f, 3.0f);
         Vector3 cameraTarget = Vector3(0, 0, 0);

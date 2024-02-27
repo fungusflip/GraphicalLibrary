@@ -31,16 +31,25 @@ int main() {
     GameObject cube{ &textured, Mesh::createCube(), &wall };
 
 
+    //Vector
+    for (int i = 0; i < 10; i++)
+    {
+        //create new
+        //pushback
+        //Position
+    }
+
     // While the User doesn't want to Quit (X Button, Alt+F4)
     while (!window.shouldClose()) // window -> window.window
     {
         window.processInput();
 
+        cube.position.x = glfwGetTime() * 1;
+
+        cube.position.z = glfwGetTime() * -1;
+
         window.clear();
 
-        cube.rotation.x = glfwGetTime();
-        cube.rotation.y = glfwGetTime() * 0.8f;
-        cube.rotation.z = glfwGetTime() * 0.6f;
         cube.render();
 
         window.present();

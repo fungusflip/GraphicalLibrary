@@ -11,7 +11,7 @@ class Camera{
     Window* window;
 
 public:
-    Camera(Window* window : window{window});
+
     Material* material;
 
     Vector3 cameraPos = Vector3(0.0f, 0.0f, 3.0f);                                                      //CameraPos
