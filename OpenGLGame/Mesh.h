@@ -5,6 +5,7 @@
 #include "../Maths/Vector3.h"
 #include <algorithm>
 #include <vector>
+#include <cmath>
 
 struct Vector2 {
     float x, y;
@@ -98,6 +99,50 @@ public:
         return cylinderMesh;
     }
 
+    static const Mesh* createChainLink(float majorRadius, float minorRadius, int majorSegments, int minorSegments) {
+        const float PI = 3.14159265358979323846f;
+        const int vertexCount = majorSegments * minorSegments * 6; // Two triangles per segment, 3 vertices per triangle
+
+        // Allocate memory for the vertices array
+        Vertex* vertices = new Vertex[vertexCount];
+
+        // Create vertices for the torus
+        for (int i = 0; i < majorSegments; ++i) {
+            float theta1 = (2.0f * PI / majorSegments) * i;
+            float theta2 = (2.0f * PI / majorSegments) * ((i + 1) % majorSegments);
+            float x1 = majorRadius * cos(theta1);
+            float z1 = majorRadius * sin(theta1);
+            float x2 = majorRadius * cos(theta2);
+            float z2 = majorRadius * sin(theta2);
+
+            for (int j = 0; j < minorSegments; ++j) {
+                float phi1 = (2.0f * PI / minorSegments) * j;
+                float phi2 = (2.0f * PI / minorSegments) * ((j + 1) % minorSegments);
+                float y1 = minorRadius * cos(phi1);
+                float y2 = minorRadius * cos(phi2);
+                float y3 = minorRadius * sin(phi1);
+                float y4 = minorRadius * sin(phi2);
+
+                // Top triangle
+                vertices[(i * minorSegments + j) * 6] = Vertex{ Vector3{x1 + y1, y3, z1 + y1}, Color{1.0f, 0.0f, 0.0f}, Vector2{(float)i / majorSegments, (float)j / minorSegments} };
+                vertices[(i * minorSegments + j) * 6 + 1] = Vertex{ Vector3{x1 + y2, y3, z1 + y2}, Color{0.0f, 0.0f, 1.0f}, Vector2{(float)i / majorSegments, (float)(j + 1) / minorSegments} };
+                vertices[(i * minorSegments + j) * 6 + 2] = Vertex{ Vector3{x2 + y1, y4, z2 + y1}, Color{1.0f, 0.0f, 0.0f}, Vector2{(float)(i + 1) / majorSegments, (float)j / minorSegments} };
+
+                // Bottom triangle
+                vertices[(i * minorSegments + j) * 6 + 3] = Vertex{ Vector3{x2 + y1, y4, z2 + y1}, Color{1.0f, 0.0f, 0.0f}, Vector2{(float)(i + 1) / majorSegments, (float)j / minorSegments} };
+                vertices[(i * minorSegments + j) * 6 + 4] = Vertex{ Vector3{x1 + y2, y3, z1 + y2}, Color{0.0f, 0.0f, 1.0f}, Vector2{(float)i / majorSegments, (float)(j + 1) / minorSegments} };
+                vertices[(i * minorSegments + j) * 6 + 5] = Vertex{ Vector3{x2 + y2, y4, z2 + y2}, Color{0.0f, 0.0f, 1.0f}, Vector2{(float)(i + 1) / majorSegments, (float)(j + 1) / minorSegments} };
+            }
+        }
+
+        // Create a mesh object using the generated vertices
+        const Mesh* torusMesh = new Mesh(vertices, vertexCount);
+
+        // Deallocate the vertices array
+        delete[] vertices;
+
+        return torusMesh;
+    }
 
 
     static const Mesh* createCube() { // NEW: function to create (or get) a quad mesh

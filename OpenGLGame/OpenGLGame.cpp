@@ -32,7 +32,9 @@ int main() {
 
     //Material textured{ textured, ColorShader };
 
-    GameObject cube{ &textured, Mesh::createCylinder(4.0f, 10.0f, 10),};
+    //4.0f, 10.0f, 10 tube
+    GameObject obj{ &textured, Mesh::createChainLink(1.0f, 0.2f, 20, 20) };
+
 
     // Define chain parameters
     const int numCylinders = 10;
@@ -46,17 +48,17 @@ int main() {
     {
         window.processInput();
 
-        cube.position.x = glfwGetTime() * 1;
+        obj.position.x = glfwGetTime() * 1;
 
-        cube.position.z = glfwGetTime() * -1;
+        obj.position.z = glfwGetTime() * -1;
 
-        cube.rotation.z = glfwGetTime() * -1;
+        obj.rotation.z = glfwGetTime() * -1;
 
-        cube.rotation.x = glfwGetTime() * -1;
+        obj.rotation.x = glfwGetTime() * -1;
 
         window.clear();
 
-        cube.render();
+        obj.render();
 
         window.present();
     }
