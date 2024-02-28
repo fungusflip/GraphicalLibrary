@@ -4,7 +4,8 @@ layout (location = 1) in vec4 aCol;
 layout (location = 2) in vec2 aTexCoord;
 //                              ^ input #2 tex Coord
 out vec4 vertexColor;
-out vec2 texCoord; // << we want to output a tex Coord
+out vec2 texCoord;
+out float yPos;// << we want to output a tex Coord
 
 uniform mat4 transform;
 uniform mat4 projection;
@@ -15,7 +16,12 @@ uniform mat4 model;
 void main()
 {
     gl_Position = projection * view * model * vec4(aPos.xyz, 1);
+
     vertexColor = aCol;
+
+    yPos = gl_Position.y / gl_Position.w;
+
+
     //texCoord = vec2(aPos.x + horizontalOffset, aPos.y); // we do output the value
     texCoord = aTexCoord;
 }

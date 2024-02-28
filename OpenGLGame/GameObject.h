@@ -38,7 +38,6 @@ public:
         glUniformMatrix4fv(transformLocation, 1, GL_TRUE, &transform.m11);
 
 
-
         Matrix4x4 model = Matrix4x4::Translation(position) * Matrix4x4::Rotation(rotation);
         int modelLocation = glGetUniformLocation(
             material->shaderProgram, "model");
@@ -68,7 +67,8 @@ public:
             material->shaderProgram, "projection");
         glUniformMatrix4fv(projectionLocation, 1, GL_TRUE, &projection.m11);
 
-
+        int timeLocation = glGetUniformLocation(material->shaderProgram, "time");
+        glUniform1f(timeLocation, time);
 
         glActiveTexture(GL_TEXTURE0);
 

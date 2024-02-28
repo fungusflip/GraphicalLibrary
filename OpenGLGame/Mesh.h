@@ -4,6 +4,7 @@
 #include <cstddef>
 #include "../Maths/Vector3.h"
 #include <algorithm>
+#include <vector>
 
 struct Vector2 {
     float x, y;
@@ -38,7 +39,12 @@ class Mesh
 
     const static Vertex cubeVertices[36];
     static Mesh* cubeMesh;
+
+    static std::vector<Vertex> cylinderVertices;
+    static Mesh* cylinderMesh;
 public:
+
+
 
     // public static method to create a quad mesh
     static const Mesh* createQuad() { // NEW: function to create (or get) a quad mesh
@@ -54,6 +60,45 @@ public:
         }
         return triangleMesh; // NEW: return quad mesh
     }
+
+
+    static const Mesh* createCylinder(float radius, float height, int segments) {
+        const float PI = 3.14159265358979323846;
+        const int vertexCount = segments * 6; // Two triangles per segment, 3 vertices per triangle
+
+        // Allocate memory for the vertices array
+        Vertex* vertices = new Vertex[vertexCount];
+
+        // Create vertices for the side of the cylinder
+        for (int i = 0; i < segments; ++i) {
+            float theta1 = (2.0f * PI / segments) * i;
+            float theta2 = (2.0f * PI / segments) * (i + 1);
+            float x1 = radius * cos(theta1);
+            float z1 = radius * sin(theta1);
+            float x2 = radius * cos(theta2);
+            float z2 = radius * sin(theta2);
+
+            // Top triangle
+            vertices[i * 6] = Vertex{ Vector3{x1, height / 2.0f, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)} };
+            vertices[i * 6 + 1] = Vertex{ Vector3{x1, -height / 2.0f, z1}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)} };
+            vertices[i * 6 + 2] = Vertex{ Vector3{x2, height / 2.0f, z2}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)} };
+
+            // Bottom triangle
+            vertices[i * 6 + 3] = Vertex{ Vector3{x2, height / 2.0f, z2}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)} };
+            vertices[i * 6 + 4] = Vertex{ Vector3{x1, -height / 2.0f, z1}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)} };
+            vertices[i * 6 + 5] = Vertex{ Vector3{x2, -height / 2.0f, z2}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)} };
+        }
+
+        // Create a mesh object using the generated vertices
+        const Mesh* cylinderMesh = new Mesh(vertices, vertexCount);
+
+        // Deallocate the vertices array
+        delete[] vertices;
+
+        return cylinderMesh;
+    }
+
+
 
     static const Mesh* createCube() { // NEW: function to create (or get) a quad mesh
         if (!cubeMesh) { // NEW: initialize, if not happened, yet

@@ -16,6 +16,7 @@ void processInput(GLFWwindow*);
 
 int main() {
 
+
     Window window{ 800,600 }; // GLFW, GLAD, glViewport
 
     Texture container{ "container.jpg", GL_TEXTURE0 };
@@ -24,20 +25,21 @@ int main() {
 
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER };
     Shader textureShader{ "textureFragmentShader.glsl", GL_FRAGMENT_SHADER };
+    Shader ColorShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
-    Material textured{ vertexShader, textureShader };
+    Material textured{ vertexShader, ColorShader };
 
-    GameObject cube{ &textured, Mesh::createCube(), &wall };
+    //Material textured{ textured, ColorShader };
 
+    GameObject cube{ &textured, Mesh::createCylinder(4.0f, 10.0f, 10),};
 
-    //Vector
-    for (int i = 0; i < 10; i++)
-    {
-        //create new
-        //pushback
-        //Position
-    }
+    // Define chain parameters
+    const int numCylinders = 10;
+    const float cylinderSpacing = 2.0f;
+
+    // Create a vector to hold the chain of cylinders
+
 
     // While the User doesn't want to Quit (X Button, Alt+F4)
     while (!window.shouldClose()) // window -> window.window
@@ -47,6 +49,10 @@ int main() {
         cube.position.x = glfwGetTime() * 1;
 
         cube.position.z = glfwGetTime() * -1;
+
+        cube.rotation.z = glfwGetTime() * -1;
+
+        cube.rotation.x = glfwGetTime() * -1;
 
         window.clear();
 

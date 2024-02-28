@@ -73,3 +73,5 @@ const Vertex Mesh::cubeVertices[36]{
 };
 
 Mesh* Mesh::cubeMesh{};
+
+Mesh* Mesh::cylinderMesh{};

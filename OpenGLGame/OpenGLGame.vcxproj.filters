@@ -72,7 +72,6 @@
   <ItemGroup>
     <None Include="orangeFragmentShader.glsl" />
     <None Include="textureFragmentShader.glsl" />
-    <None Include="blendTexturesFragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>
 </Project>
