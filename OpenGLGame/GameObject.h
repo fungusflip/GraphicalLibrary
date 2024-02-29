@@ -48,8 +48,6 @@ public:
         float camX = radius;
         float camZ = radius;
 
-        Vector3 cameraPos = Vector3(0.0f, 0.0f, 3.0f);
-        Vector3 cameraTarget = Vector3(0, 0, 0);
         Vector3 cameraDirection = Vector3(0, 0, 0);
         Vector3 up = Vector3(0, 1, 0);
 
@@ -57,7 +55,7 @@ public:
         Vector3 Cameraright = Vector3::Cross(up, cameraDirection).Normalize();
         Vector3 CameraUp = Vector3::Cross(cameraDirection, Cameraright);
 
-        Matrix4x4 view = Matrix4x4::LookAt(Vector3(camX, 0.0, camZ), Vector3(0.0, 0.0, 0.0), Vector3(0.0, 1.0, 0.0));
+        Matrix4x4 view = Matrix4x4::LookAt(Vector3(camX, 0.0, camZ), this->position, Vector3(0.0, 1.0, 0.0)).Inverse();
         int ViewLocation = glGetUniformLocation(
             material->shaderProgram, "view");
         glUniformMatrix4fv(ViewLocation, 1, GL_TRUE, &view.m11);

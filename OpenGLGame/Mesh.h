@@ -99,50 +99,82 @@ public:
         return cylinderMesh;
     }
 
-    static const Mesh* createChainLink(float majorRadius, float minorRadius, int majorSegments, int minorSegments) {
-        const float PI = 3.14159265358979323846f;
-        const int vertexCount = majorSegments * minorSegments * 6; // Two triangles per segment, 3 vertices per triangle
+    static const Mesh* createCurvedCylinder(float radius, float height, int segments) {
+        const float PI = 3.14159265358979323846;
+        const int vertexCount = segments * 6; // Two triangles per segment, 3 vertices per triangle
 
         // Allocate memory for the vertices array
         Vertex* vertices = new Vertex[vertexCount];
 
-        // Create vertices for the torus
-        for (int i = 0; i < majorSegments; ++i) {
-            float theta1 = (2.0f * PI / majorSegments) * i;
-            float theta2 = (2.0f * PI / majorSegments) * ((i + 1) % majorSegments);
-            float x1 = majorRadius * cos(theta1);
-            float z1 = majorRadius * sin(theta1);
-            float x2 = majorRadius * cos(theta2);
-            float z2 = majorRadius * sin(theta2);
+        // Define a curvature function (e.g., based on a sine wave)
+        auto curvatureFunc = [](float t) { return sin(t); };
 
-            for (int j = 0; j < minorSegments; ++j) {
-                float phi1 = (2.0f * PI / minorSegments) * j;
-                float phi2 = (2.0f * PI / minorSegments) * ((j + 1) % minorSegments);
-                float y1 = minorRadius * cos(phi1);
-                float y2 = minorRadius * cos(phi2);
-                float y3 = minorRadius * sin(phi1);
-                float y4 = minorRadius * sin(phi2);
+        // Create vertices for the curved side of the cylinder
+        for (int i = 0; i < segments; ++i) {
+            float t = static_cast<float>(i) / segments; // Normalized position along the cylinder's length
+            float curvature = curvatureFunc(t); // Calculate curvature based on the position
 
-                // Top triangle
-                vertices[(i * minorSegments + j) * 6] = Vertex{ Vector3{x1 + y1, y3, z1 + y1}, Color{1.0f, 0.0f, 0.0f}, Vector2{(float)i / majorSegments, (float)j / minorSegments} };
-                vertices[(i * minorSegments + j) * 6 + 1] = Vertex{ Vector3{x1 + y2, y3, z1 + y2}, Color{0.0f, 0.0f, 1.0f}, Vector2{(float)i / majorSegments, (float)(j + 1) / minorSegments} };
-                vertices[(i * minorSegments + j) * 6 + 2] = Vertex{ Vector3{x2 + y1, y4, z2 + y1}, Color{1.0f, 0.0f, 0.0f}, Vector2{(float)(i + 1) / majorSegments, (float)j / minorSegments} };
+            // Apply curvature along y-axis
+            float y1 = curvature * height / 2.0f;
+            float y2 = curvature * -height / 2.0f;
 
-                // Bottom triangle
-                vertices[(i * minorSegments + j) * 6 + 3] = Vertex{ Vector3{x2 + y1, y4, z2 + y1}, Color{1.0f, 0.0f, 0.0f}, Vector2{(float)(i + 1) / majorSegments, (float)j / minorSegments} };
-                vertices[(i * minorSegments + j) * 6 + 4] = Vertex{ Vector3{x1 + y2, y3, z1 + y2}, Color{0.0f, 0.0f, 1.0f}, Vector2{(float)i / majorSegments, (float)(j + 1) / minorSegments} };
-                vertices[(i * minorSegments + j) * 6 + 5] = Vertex{ Vector3{x2 + y2, y4, z2 + y2}, Color{0.0f, 0.0f, 1.0f}, Vector2{(float)(i + 1) / majorSegments, (float)(j + 1) / minorSegments} };
-            }
+            // Calculate x and z coordinates based on cylinder's circumference
+            float theta1 = (2.0f * PI / segments) * i;
+            float theta2 = (2.0f * PI / segments) * (i + 1);
+            float x1 = radius * cos(theta1);
+            float z1 = radius * sin(theta1);
+            float x2 = radius * cos(theta2);
+            float z2 = radius * sin(theta2);
+
+            // Assign vertices
+            vertices[i * 6] = Vertex{ Vector3{x1, y1, z1}, Color{1.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+            vertices[i * 6 + 1] = Vertex{ Vector3{x1, y2, z1}, Color{0.0f, 0.0f, 1.0f}, /* Texture coordinates */ };
+            vertices[i * 6 + 2] = Vertex{ Vector3{x2, y1, z2}, Color{1.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+            vertices[i * 6 + 3] = Vertex{ Vector3{x2, y1, z2}, Color{1.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+            vertices[i * 6 + 4] = Vertex{ Vector3{x1, y2, z1}, Color{0.0f, 0.0f, 1.0f}, /* Texture coordinates */ };
+            vertices[i * 6 + 5] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 1.0f}, /* Texture coordinates */ };
         }
 
         // Create a mesh object using the generated vertices
-        const Mesh* torusMesh = new Mesh(vertices, vertexCount);
+        const Mesh* curvedCylinderMesh = new Mesh(vertices, vertexCount);
 
         // Deallocate the vertices array
         delete[] vertices;
 
-        return torusMesh;
+        return curvedCylinderMesh;
     }
+
+
+    static const Mesh* createSphere(float radius, int rings, int sectors) {
+        const int vertexCount = rings * sectors;
+        static const float PI = 3.14159265358979323846;
+
+        std::vector<Vertex> vertices;
+        vertices.reserve(vertexCount);
+
+        float const R = 1.0f / static_cast<float>(rings - 1);
+        float const S = 1.0f / static_cast<float>(sectors - 1);
+        int r, s;
+
+        for (r = 0; r < rings; ++r) {
+            for (s = 0; s < sectors; ++s) {
+                float const y = sin(-PI / 2 + PI * r * R);
+                float const x = cos(2 * PI * s * S) * sin(PI * r * R);
+                float const z = sin(2 * PI * s * S) * sin(PI * r * R);
+
+                Vector3 position = { x * radius, y * radius, z * radius };
+         
+
+                Color color = { 1.0f, 1.0f, 1.0f }; // Example color, you can adjust or remove this
+                // You can also calculate texture coordinates here if needed
+
+                vertices.push_back(Vertex{ position, color, });
+            }
+        }
+
+        return new Mesh(vertices.data(), vertexCount);
+    }
+
 
 
     static const Mesh* createCube() { // NEW: function to create (or get) a quad mesh

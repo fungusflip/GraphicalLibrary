@@ -33,7 +33,7 @@ int main() {
     //Material textured{ textured, ColorShader };
 
     //4.0f, 10.0f, 10 tube
-    GameObject obj{ &textured, Mesh::createChainLink(1.0f, 0.2f, 20, 20) };
+    GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
 
 
     // Define chain parameters
@@ -48,13 +48,10 @@ int main() {
     {
         window.processInput();
 
-        obj.position.x = glfwGetTime() * 1;
 
-        obj.position.z = glfwGetTime() * -1;
+        obj.position.z = glfwGetTime() * 1;
 
-        obj.rotation.z = glfwGetTime() * -1;
-
-        obj.rotation.x = glfwGetTime() * -1;
+      
 
         window.clear();
 
