@@ -33,7 +33,9 @@ int main() {
     //Material textured{ textured, ColorShader };
 
     //4.0f, 10.0f, 10 tube
-    GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
+   // GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
+
+    GameObject obj{ &textured, Mesh::createSphere(5.0, 12, 24) };
 
 
     // Define chain parameters

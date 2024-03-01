@@ -63,6 +63,8 @@ public:
     }
 
 
+
+
     static const Mesh* createCylinder(float radius, float height, int segments) {
         const float PI = 3.14159265358979323846;
         const int vertexCount = segments * 6; // Two triangles per segment, 3 vertices per triangle
@@ -98,6 +100,8 @@ public:
 
         return cylinderMesh;
     }
+
+
 
     static const Mesh* createCurvedCylinder(float radius, float height, int segments) {
         const float PI = 3.14159265358979323846;
@@ -145,34 +149,57 @@ public:
     }
 
 
-    static const Mesh* createSphere(float radius, int rings, int sectors) {
-        const int vertexCount = rings * sectors;
-        static const float PI = 3.14159265358979323846;
+    static const Mesh* createSphere(float radius, int latitudeDivisions, int longitudeDivisions) {
+        const float PI = 3.14159265358979323846;
+        const int vertexCount = latitudeDivisions * longitudeDivisions * 6; // Two triangles per cylinder face, 3 vertices per triangle
 
-        std::vector<Vertex> vertices;
-        vertices.reserve(vertexCount);
+        // Allocate memory for the vertices array
+        Vertex* vertices = new Vertex[vertexCount];
 
-        float const R = 1.0f / static_cast<float>(rings - 1);
-        float const S = 1.0f / static_cast<float>(sectors - 1);
-        int r, s;
+        // Calculate the angular step sizes for latitude and longitude divisions
+        float latitudeStep = PI / latitudeDivisions;
+        float longitudeStep = 2 * PI / longitudeDivisions;
 
-        for (r = 0; r < rings; ++r) {
-            for (s = 0; s < sectors; ++s) {
-                float const y = sin(-PI / 2 + PI * r * R);
-                float const x = cos(2 * PI * s * S) * sin(PI * r * R);
-                float const z = sin(2 * PI * s * S) * sin(PI * r * R);
+        // Create vertices for the sphere
+        for (int lat = 0; lat < latitudeDivisions; ++lat) {
+            for (int lon = 0; lon < longitudeDivisions; ++lon) {
+                // Calculate the angles for this latitude and longitude division
+                float theta1 = lat * latitudeStep;
+                float theta2 = (lat + 1) * latitudeStep;
+                float phi1 = lon * longitudeStep;
+                float phi2 = (lon + 1) * longitudeStep;
 
-                Vector3 position = { x * radius, y * radius, z * radius };
-         
+                // Calculate the positions of the vertices for the current cylinder face
+                float x1 = radius * sin(theta1) * cos(phi1);
+                float y1 = radius * cos(theta1);
+                float z1 = radius * sin(theta1) * sin(phi1);
+                float x2 = radius * sin(theta1) * cos(phi2);
+                float y2 = radius * cos(theta1);
+                float z2 = radius * sin(theta1) * sin(phi2);
+                float x3 = radius * sin(theta2) * cos(phi1);
+                float y3 = radius * cos(theta2);
+                float z3 = radius * sin(theta2) * sin(phi1);
+                float x4 = radius * sin(theta2) * cos(phi2);
+                float y4 = radius * cos(theta2);
+                float z4 = radius * sin(theta2) * sin(phi2);
 
-                Color color = { 1.0f, 1.0f, 1.0f }; // Example color, you can adjust or remove this
-                // You can also calculate texture coordinates here if needed
-
-                vertices.push_back(Vertex{ position, color, });
+                // Assign vertices for the current cylinder face
+                vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
             }
         }
 
-        return new Mesh(vertices.data(), vertexCount);
+        // Create a mesh object using the generated vertices
+        const Mesh* sphereMesh = new Mesh(vertices, vertexCount);
+
+        // Deallocate the vertices array
+        delete[] vertices;
+
+        return sphereMesh;
     }
 
 
