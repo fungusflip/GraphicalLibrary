@@ -25,7 +25,7 @@ int main() {
 
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER };
     Shader textureShader{ "textureFragmentShader.glsl", GL_FRAGMENT_SHADER };
-    Shader ColorShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER };
+    Shader ColorShader{ "RedBlueShader.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
     Material RedBlue{ vertexShader, ColorShader };
@@ -35,7 +35,7 @@ int main() {
     //4.0f, 10.0f, 10 tube
     GameObject obj1{ &RedBlue, Mesh::createCylinder(4.0, 2, 100) };
 
-    GameObject obj2{ &RedBlue, Mesh::createCylinder(4.0, 2, 100) };
+    GameObject obj2{ &RedBlue, Mesh::createCylinder(2.0, 1, 100) };
 
     
 

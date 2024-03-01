@@ -64,7 +64,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="orangeFragmentShader.glsl" />
+    <None Include="RedBlueShader.glsl" />
     <None Include="textureFragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
   </ItemGroup>
