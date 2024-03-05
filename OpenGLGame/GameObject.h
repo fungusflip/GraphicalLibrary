@@ -65,6 +65,17 @@ public:
             material->shaderProgram, "projection");
         glUniformMatrix4fv(projectionLocation, 1, GL_TRUE, &projection.m11);
 
+        // Define your LightningPos
+        Vector3 LightningPos(1.2f, 1.0f, 2.0f);
+
+        // Retrieve the location of the uniform
+        int LightningLocation = glGetUniformLocation(material->shaderProgram, "LightningPos");
+
+        // Set the uniform value
+        glUniform3f(LightningLocation, LightningPos.x, LightningPos.y, LightningPos.z);
+
+
+
         int timeLocation = glGetUniformLocation(material->shaderProgram, "time");
         glUniform1f(timeLocation, time);
 

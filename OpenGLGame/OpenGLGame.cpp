@@ -35,7 +35,7 @@ int main() {
     //4.0f, 10.0f, 10 tube
    // GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
 
-    GameObject obj{ &textured, Mesh::createSphere(5.0, 12, 24) };
+    GameObject obj{ &textured, Mesh::createSphere(2.0, 24, 24) };
 
 
     // Define chain parameters
@@ -49,7 +49,6 @@ int main() {
     while (!window.shouldClose()) // window -> window.window
     {
         window.processInput();
-
 
         obj.position.z = glfwGetTime() * 1;
 

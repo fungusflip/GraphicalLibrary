@@ -2,15 +2,18 @@
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 aCol;
 layout (location = 2) in vec2 aTexCoord;
-//                              ^ input #2 tex Coord
+layout (location = 3) in vec3 aNormal;
+
+
 out vec4 vertexColor;
 out vec2 texCoord;
-out float yPos;// << we want to output a tex Coord
+out vec3 Normal;
 
 uniform mat4 transform;
 uniform mat4 projection;
 uniform mat4 view;
 uniform mat4 model;
+uniform vec3 LightningPos;
 
 
 void main()
@@ -19,8 +22,7 @@ void main()
 
     vertexColor = aCol;
 
-    yPos = gl_Position.y / gl_Position.w;
-
+    aNormal = Normal;
 
     //texCoord = vec2(aPos.x + horizontalOffset, aPos.y); // we do output the value
     texCoord = aTexCoord;

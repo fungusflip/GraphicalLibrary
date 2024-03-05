@@ -24,7 +24,8 @@ struct Color {
 struct Vertex {
     Vector3 pos;
     Color col{ 1,1,1,1 };
-    Vector2 uv; // texture coordinates
+    Vector2 uv;
+    Vector3 normal;// texture coordinates
 };
 
 class Mesh
@@ -81,15 +82,17 @@ public:
             float x2 = radius * cos(theta2);
             float z2 = radius * sin(theta2);
 
+            Vector3 normal{ cos(theta1 + PI / 2.0f), 0.0f, sin(theta1 + PI / 2.0f) };
+
             // Top triangle
-            vertices[i * 6] = Vertex{ Vector3{x1, height / 2.0f, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)} };
-            vertices[i * 6 + 1] = Vertex{ Vector3{x1, -height / 2.0f, z1}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)} };
-            vertices[i * 6 + 2] = Vertex{ Vector3{x2, height / 2.0f, z2}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)} };
+            vertices[i * 6] = Vertex{ Vector3{x1, height / 2.0f, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)}, normal  };
+            vertices[i * 6 + 1] = Vertex{ Vector3{x1, -height / 2.0f, z1}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)}, normal };
+            vertices[i * 6 + 2] = Vertex{ Vector3{x2, height / 2.0f, z2}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)},normal };
 
             // Bottom triangle
-            vertices[i * 6 + 3] = Vertex{ Vector3{x2, height / 2.0f, z2}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)} };
-            vertices[i * 6 + 4] = Vertex{ Vector3{x1, -height / 2.0f, z1}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)} };
-            vertices[i * 6 + 5] = Vertex{ Vector3{x2, -height / 2.0f, z2}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)} };
+            vertices[i * 6 + 3] = Vertex{ Vector3 { x2, height / 2.0f, z2}, Color{1.0f, 0.0f, 0.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)},normal };
+            vertices[i * 6 + 4] = Vertex{ Vector3{x1, -height / 2.0f, z1}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x1 / (2.0f * radius), 0.5f + z1 / (2.0f * radius)},normal };
+            vertices[i * 6 + 5] = Vertex{ Vector3{x2, -height / 2.0f, z2}, Color{0.0f, 0.0f, 1.0f}, Vector2{0.5f + x2 / (2.0f * radius), 0.5f + z2 / (2.0f * radius)},normal };
         }
 
         // Create a mesh object using the generated vertices
@@ -183,13 +186,30 @@ public:
                 float y4 = radius * cos(theta2);
                 float z4 = radius * sin(theta2) * sin(phi2);
 
+                Vector3 normal{ cos(theta1 + PI / 2.0f), 0.0f, sin(theta1 + PI / 2.0f) };
+
+                Vector3 normal1{ x1, y1, z1 };
+                normal1.Normalize();
+                Vector3 normal2{ x3, y3, z3 };
+                normal2.Normalize();
+                Vector3 normal3{ x2, y2, z2 };
+                normal3.Normalize();
+                Vector3 normal4{ x2, y2, z2 };
+                normal4.Normalize();
+                Vector3 normal5{ x3, y3, z3 };
+                normal5.Normalize();
+                Vector3 normal6{ x4, y4, z4 };
+
                 // Assign vertices for the current cylinder face
-                vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+
+                //add for all
+                vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1},  normal1 };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f} , Vector2{1,1}, normal2 };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, Vector2{1,1}, normal3 };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 1.0f, 0.0f}, Vector2{1,1}, normal4 };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, Vector2{1,1}, normal5 };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1}, normal6 };
+
             }
         }
 
@@ -212,6 +232,7 @@ public:
     }
 
     void render() const {
+
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, vertexCount);
     }
@@ -242,5 +263,14 @@ public:
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
             sizeof(Vertex), (void*)offsetof(Vertex, uv));
         glEnableVertexAttribArray(2);
+
+        glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE,
+            sizeof(Vertex), (void*)offsetof(Vertex, uv));
+        glEnableVertexAttribArray(2);
+
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
+        glEnableVertexAttribArray(2);
     }
+
+
 };
