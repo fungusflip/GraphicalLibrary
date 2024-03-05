@@ -25,7 +25,7 @@ struct Vertex {
     Vector3 pos;
     Color col{ 1,1,1,1 };
     Vector2 uv;
-    Vector3 normal;// texture coordinates
+    Vector3 aNormal;// texture coordinates
 };
 
 class Mesh
@@ -268,8 +268,8 @@ public:
             sizeof(Vertex), (void*)offsetof(Vertex, uv));
         glEnableVertexAttribArray(2);
 
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, normal));
-        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, aNormal));
+        glEnableVertexAttribArray(3);
     }
 
 

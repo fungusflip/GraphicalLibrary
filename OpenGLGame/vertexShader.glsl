@@ -4,7 +4,7 @@ layout (location = 1) in vec4 aCol;
 layout (location = 2) in vec2 aTexCoord;
 layout (location = 3) in vec3 aNormal;
 
-
+out vec3 FragPos;
 out vec4 vertexColor;
 out vec2 texCoord;
 out vec3 Normal;
@@ -22,7 +22,9 @@ void main()
 
     vertexColor = aCol;
 
-    aNormal = Normal;
+    FragPos = vec3(model * vec4(aPos, 1.0));
+
+    Normal = aNormal;
 
     //texCoord = vec2(aPos.x + horizontalOffset, aPos.y); // we do output the value
     texCoord = aTexCoord;

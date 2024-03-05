@@ -64,8 +64,9 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="orangeFragmentShader.glsl" />
     <None Include="textureFragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
+    <None Include="ColorLightningFragmentShader.glsl" />
+    <None Include="blendTexturesFragmentShader.glsl" />
   </ItemGroup>
 </Project>

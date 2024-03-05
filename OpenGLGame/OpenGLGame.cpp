@@ -25,17 +25,17 @@ int main() {
 
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER };
     Shader textureShader{ "textureFragmentShader.glsl", GL_FRAGMENT_SHADER };
-    Shader ColorShader{ "orangeFragmentShader.glsl", GL_FRAGMENT_SHADER };
+    Shader ColorShader{ "ColorLightningFragmentShader.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
-    Material textured{ vertexShader, ColorShader };
+    Material Lightning{ vertexShader, ColorShader };
 
     //Material textured{ textured, ColorShader };
 
     //4.0f, 10.0f, 10 tube
    // GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
 
-    GameObject obj{ &textured, Mesh::createSphere(2.0, 24, 24) };
+    GameObject obj{ &Lightning, Mesh::createSphere(2.0, 24, 24) };
 
 
     // Define chain parameters
@@ -52,7 +52,7 @@ int main() {
 
         obj.position.z = glfwGetTime() * 1;
 
-      
+        obj.rotation.y = glfwGetTime() * 2;
 
         window.clear();
 
