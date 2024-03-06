@@ -26,7 +26,8 @@ void main()
 
     vec3 transformedNormal = vec3(model * vec4(Normal.xyz, 0));
 
-    transformedNormal = aNormal;
+    Normal = aNormal;
+    //transformedNormal = aNormal;
 
     texCoord = aTexCoord;
 }

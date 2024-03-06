@@ -208,6 +208,8 @@ public:
                 normal5.Normalize();
                 normal6.Normalize();
 
+                //TODO lookthrough normal calculations.
+
                 // Assign vertices for the current cylinder face
                 vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1},  normal1 };
                 vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f} , Vector2{1,1}, normal2 };

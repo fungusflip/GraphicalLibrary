@@ -35,7 +35,7 @@ int main() {
     //4.0f, 10.0f, 10 tube
    // GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
 
-    GameObject obj{ &Lightning, Mesh::createSphere(2.0, 24, 24) };
+    GameObject obj{ &Lightning, Mesh::createSphere(2.0,128, 128) };
 
 
     // Define chain parameters
@@ -50,9 +50,10 @@ int main() {
     {
         window.processInput();
 
-        obj.position.z = glfwGetTime() * 4;
 
         obj.rotation.z = glfwGetTime() * 2;
+
+        obj.LightningPos.x = 1;
 
 
         window.clear();

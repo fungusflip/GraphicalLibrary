@@ -21,5 +21,6 @@ void main()
     vec3 diffuse = diff * lightColor;
 
     vec3 result = (ambient + diffuse) * vertexColor.rgb;
-    pixelColor = vec4(result, 1.0);
+    //pixelColor = vec4(result, 1.0);
+    pixelColor = vec4(Normal.x, Normal.y, Normal.z, 1);
 }
