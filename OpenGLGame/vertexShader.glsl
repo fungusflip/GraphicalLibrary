@@ -24,8 +24,9 @@ void main()
 
     FragPos = vec3(model * vec4(aPos, 1.0));
 
-    Normal = aNormal;
+    vec3 transformedNormal = vec3(model * vec4(Normal.xyz, 0));
 
-    //texCoord = vec2(aPos.x + horizontalOffset, aPos.y); // we do output the value
+    transformedNormal = aNormal;
+
     texCoord = aTexCoord;
 }

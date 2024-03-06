@@ -153,6 +153,7 @@ public:
 
 
     static const Mesh* createSphere(float radius, int latitudeDivisions, int longitudeDivisions) {
+        // Create a mesh object using the generated vertices
         const float PI = 3.14159265358979323846;
         const int vertexCount = latitudeDivisions * longitudeDivisions * 6; // Two triangles per cylinder face, 3 vertices per triangle
 
@@ -186,32 +187,37 @@ public:
                 float y4 = radius * cos(theta2);
                 float z4 = radius * sin(theta2) * sin(phi2);
 
-                Vector3 normal{ cos(theta1 + PI / 2.0f), 0.0f, sin(theta1 + PI / 2.0f) };
+                // Calculate the center of the sphere
+                float centerX = 0.0f; // Assuming the sphere is centered at the origin
+                float centerY = 0.0f;
+                float centerZ = 0.0f;
 
-                Vector3 normal1{ x1, y1, z1 };
+                // Calculate the vector from the center to the vertex
+                Vector3 normal1{ centerX - x1, centerY - y1, centerZ - z1 };
+                Vector3 normal2{ centerX - x2, centerY - y2, centerZ - z2 };
+                Vector3 normal3{ centerX - x3, centerY - y3, centerZ - z3 };
+                Vector3 normal4{ centerX - x2, centerY - y2, centerZ - z2 }; // Reusing since x2 = x4
+                Vector3 normal5{ centerX - x3, centerY - y3, centerZ - z3 }; // Reusing since x3 = x4
+                Vector3 normal6{ centerX - x4, centerY - y4, centerZ - z4 };
+
+                // Normalize the normals
                 normal1.Normalize();
-                Vector3 normal2{ x3, y3, z3 };
                 normal2.Normalize();
-                Vector3 normal3{ x2, y2, z2 };
                 normal3.Normalize();
-                Vector3 normal4{ x2, y2, z2 };
                 normal4.Normalize();
-                Vector3 normal5{ x3, y3, z3 };
                 normal5.Normalize();
-                Vector3 normal6{ x4, y4, z4 };
+                normal6.Normalize();
 
                 // Assign vertices for the current cylinder face
-
-                //add for all
                 vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1},  normal1 };
                 vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f} , Vector2{1,1}, normal2 };
                 vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, Vector2{1,1}, normal3 };
                 vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 1.0f, 0.0f}, Vector2{1,1}, normal4 };
                 vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, Vector2{1,1}, normal5 };
                 vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1}, normal6 };
-
             }
         }
+
 
         // Create a mesh object using the generated vertices
         const Mesh* sphereMesh = new Mesh(vertices, vertexCount);
@@ -268,7 +274,7 @@ public:
             sizeof(Vertex), (void*)offsetof(Vertex, uv));
         glEnableVertexAttribArray(2);
 
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, aNormal));
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, aNormal));
         glEnableVertexAttribArray(3);
     }
 

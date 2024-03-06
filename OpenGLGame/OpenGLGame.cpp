@@ -50,9 +50,10 @@ int main() {
     {
         window.processInput();
 
-        obj.position.z = glfwGetTime() * 1;
+        obj.position.z = glfwGetTime() * 4;
 
-        obj.rotation.y = glfwGetTime() * 2;
+        obj.rotation.z = glfwGetTime() * 2;
+
 
         window.clear();
 

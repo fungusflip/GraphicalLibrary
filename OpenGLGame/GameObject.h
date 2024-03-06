@@ -15,8 +15,10 @@ class GameObject
 
 public:
 
+    //More wizardry
     Vector3 position = Vector3(0, 0, 0);
     Vector3 rotation = Vector3(0, 0, 0);
+    Vector3 LightningPos = Vector3(0, 0, 0);
 
     GameObject (Material* _material, const Mesh* _mesh, Texture*_texture = nullptr) {
         mesh = _mesh;
@@ -32,22 +34,30 @@ public:
         Matrix4x4 matRotation = Matrix4x4::Rotation(rotation);
 
 
+
+        //Transform matrix
         Matrix4x4 transform = matTranslation * matRotation;
         int transformLocation = glGetUniformLocation(
             material->shaderProgram, "transform");
         glUniformMatrix4fv(transformLocation, 1, GL_TRUE, &transform.m11);
 
 
+
+        //Model matrix
         Matrix4x4 model = Matrix4x4::Translation(position) * Matrix4x4::Rotation(rotation);
         int modelLocation = glGetUniformLocation(
             material->shaderProgram, "model");
         glUniformMatrix4fv(modelLocation, 1, GL_TRUE, &model.m11);
+
+
 
         const float radius = 10.0f;
         float time = glfwGetTime();
         float camX = radius;
         float camZ = radius;
 
+
+        //Wizardry
         Vector3 cameraDirection = Vector3(0, 0, 0);
         Vector3 up = Vector3(0, 1, 0);
 
@@ -55,18 +65,20 @@ public:
         Vector3 Cameraright = Vector3::Cross(up, cameraDirection).Normalize();
         Vector3 CameraUp = Vector3::Cross(cameraDirection, Cameraright);
 
+
+        //View Matrix
         Matrix4x4 view = Matrix4x4::LookAt(Vector3(camX, 0.0, camZ), this->position, Vector3(0.0, 1.0, 0.0)).Inverse();
         int ViewLocation = glGetUniformLocation(
             material->shaderProgram, "view");
         glUniformMatrix4fv(ViewLocation, 1, GL_TRUE, &view.m11);
 
+
+        //Projection Matrix
         Matrix4x4 projection = Matrix4x4::Perspective(45, 800 / 600, 0.1, 100.0f);
         int projectionLocation = glGetUniformLocation(
             material->shaderProgram, "projection");
         glUniformMatrix4fv(projectionLocation, 1, GL_TRUE, &projection.m11);
 
-        // Define your LightningPos
-        Vector3 LightningPos(1.2f, 1.0f, 2.0f);
 
         // Retrieve the location of the uniform
         int LightningLocation = glGetUniformLocation(material->shaderProgram, "LightningPos");
