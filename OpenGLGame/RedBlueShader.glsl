@@ -7,5 +7,5 @@ uniform float time;
 void main()
 {
 
-    pixelColor = vertexColor + new vec4(sin(time) * 0.5,0,0,0);;
+    pixelColor = vertexColor + vec4(sin(time) * 1,0,0,0);;
 }
