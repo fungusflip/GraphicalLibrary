@@ -184,12 +184,12 @@ public:
                 float z4 = radius * sin(theta2) * sin(phi2);
 
                 // Assign vertices for the current cylinder face
-                vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{0.0f, 0.0f, 0.0f}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{x1/radius,y1 / radius,z1 / radius}, /* Texture coordinates */};
+                vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{x3/radius,y3 / radius,z3 / radius}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{x2/radius,y2 / radius,z2 / radius}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{x2/radius,y2 / radius,z2 / radius}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{x3/radius,y3 / radius,z3 / radius}, /* Texture coordinates */ };
+                vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{x4/radius,y4 / radius,z4 / radius}, /* Texture coordinates */ };
             }
         }
 
