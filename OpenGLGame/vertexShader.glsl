@@ -24,10 +24,10 @@ void main()
 
     FragPos = vec3(model * vec4(aPos, 1.0));
 
-    vec3 transformedNormal = vec3(model * vec4(Normal.xyz, 0));
+    vec3 transformedNormal = (model * vec4(aNormal.xyz, 0)).xyz;
 
     Normal = aNormal;
-    //transformedNormal = aNormal;
+    Normal = transformedNormal;
 
     texCoord = aTexCoord;
 }

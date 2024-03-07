@@ -10,9 +10,9 @@ in vec3 Normal;
 void main()
 {
 
-    vec3 lightColor = vec3(1, 1, 1);
+    vec3 lightColor = vec3(0.5, 0.5, 0.5);
 
-    float ambientStrength = 0.4;
+    float ambientStrength = 0.8;
     vec3 ambient = ambientStrength * lightColor;
 
     vec3 norm = normalize(Normal);
@@ -21,6 +21,6 @@ void main()
     vec3 diffuse = diff * lightColor;
 
     vec3 result = (ambient + diffuse) * vertexColor.rgb;
-    //pixelColor = vec4(result, 1.0);
-    pixelColor = vec4(Normal.x, Normal.y, Normal.z, 1);
+    pixelColor = vec4(result, 1.0);
+    //pixelColor = vec4(Normal.x, Normal.y, Normal.z, 1);
 }

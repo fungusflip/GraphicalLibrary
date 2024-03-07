@@ -182,7 +182,7 @@ public:
                 normals[2] = Vector3{sin(theta1) * cos(phi2), cos(theta1), sin(theta1) * sin(phi2)}; // left-top
                 normals[3] = normals[2]; // left-top
                 normals[4] = normals[1]; // right-bot
-                normals[5] = Vector3{ sin(theta2) * cos(phi2), cos(theta2), sin(theta2 * sin(phi2)) }; // right-top
+                normals[5] = Vector3{ sin(theta2) * cos(phi2), cos(theta2), sin(theta2) * sin(phi2) }; // right-top
 
                 const Color colors[6]{
                     Color{1.0f, 0.0f, 0.0f},
