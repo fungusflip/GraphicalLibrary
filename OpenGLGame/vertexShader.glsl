@@ -24,9 +24,10 @@ void main()
 
     FragPos = vec3(model * vec4(aPos, 1.0));
 
-    vec3 transformedNormal = (model * vec4(aNormal.xyz, 0)).xyz;
+   // Calculate transformed normal using inverse transpose of the model matrix
+    vec3 transformedNormal = normalize((transpose(inverse(mat3(model)))) * aNormal);
 
-    Normal = aNormal;
+
     Normal = transformedNormal;
 
     texCoord = aTexCoord;

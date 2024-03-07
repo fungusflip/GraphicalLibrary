@@ -188,7 +188,7 @@ public:
                     Color{1.0f, 0.0f, 0.0f},
                     Color{0.0f, 0.0f, 0.0f},
                     Color{0.0f, 0.0f, 0.0f},
-                    Color{0.0f, 1.0f, 0.0f},
+                    Color{1.0f, 0.0f, 0.0f},
                     Color{0.0f, 0.0f, 0.0f},
                     Color{1.0f, 0.0f, 0.0f},
                 };
