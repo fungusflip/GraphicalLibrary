@@ -157,6 +157,8 @@ public:
         const float PI = 3.14159265358979323846;
         const int vertexCount = latitudeDivisions * longitudeDivisions * 6; // Two triangles per cylinder face, 3 vertices per triangle
 
+        Vector3 center{};
+
         // Allocate memory for the vertices array
         Vertex* vertices = new Vertex[vertexCount];
 
@@ -173,50 +175,27 @@ public:
                 float phi1 = lon * longitudeStep;
                 float phi2 = (lon + 1) * longitudeStep;
 
-                // Calculate the positions of the vertices for the current cylinder face
-                float x1 = radius * sin(theta1) * cos(phi1);
-                float y1 = radius * cos(theta1);
-                float z1 = radius * sin(theta1) * sin(phi1);
-                float x2 = radius * sin(theta1) * cos(phi2);
-                float y2 = radius * cos(theta1);
-                float z2 = radius * sin(theta1) * sin(phi2);
-                float x3 = radius * sin(theta2) * cos(phi1);
-                float y3 = radius * cos(theta2);
-                float z3 = radius * sin(theta2) * sin(phi1);
-                float x4 = radius * sin(theta2) * cos(phi2);
-                float y4 = radius * cos(theta2);
-                float z4 = radius * sin(theta2) * sin(phi2);
 
-                // Calculate the center of the sphere
-                float centerX = 0.0f; // Assuming the sphere is centered at the origin
-                float centerY = 0.0f;
-                float centerZ = 0.0f;
+                Vector3 normals[6];
+                normals[0] = Vector3{ sin(theta1) * cos(phi1), cos(theta1), sin(theta1) * sin(phi1) }; // left-bot
+                normals[1] = Vector3{ sin(theta2) * cos(phi1), cos(theta2), sin(theta2) * sin(phi1) }; // right-bot
+                normals[2] = Vector3{sin(theta1) * cos(phi2), cos(theta1), sin(theta1) * sin(phi2)}; // left-top
+                normals[3] = normals[2]; // left-top
+                normals[4] = normals[1]; // right-bot
+                normals[5] = Vector3{ sin(theta2) * cos(phi2), cos(theta2), sin(theta2 * sin(phi2)) }; // right-top
 
-                // Calculate the vector from the center to the vertex
-                Vector3 normal1{ centerX - x1, centerY - y1, centerZ - z1 };
-                Vector3 normal2{ centerX - x2, centerY - y2, centerZ - z2 };
-                Vector3 normal3{ centerX - x3, centerY - y3, centerZ - z3 };
-                Vector3 normal4{ centerX - x2, centerY - y2, centerZ - z2 }; // Reusing since x2 = x4
-                Vector3 normal5{ centerX - x3, centerY - y3, centerZ - z3 }; // Reusing since x3 = x4
-                Vector3 normal6{ centerX - x4, centerY - y4, centerZ - z4 };
+                const Color colors[6]{
+                    Color{1.0f, 0.0f, 0.0f},
+                    Color{0.0f, 0.0f, 0.0f},
+                    Color{0.0f, 0.0f, 0.0f},
+                    Color{0.0f, 1.0f, 0.0f},
+                    Color{0.0f, 0.0f, 0.0f},
+                    Color{1.0f, 0.0f, 0.0f},
+                };
 
-                // Normalize the normals
-                normal1.Normalize();
-                normal2.Normalize();
-                normal3.Normalize();
-                normal4.Normalize();
-                normal5.Normalize();
-                normal6.Normalize();
-
-                //TODO lookthrough normal calculations.
-
-                // Assign vertices for the current cylinder face
-                vertices[(lat * longitudeDivisions + lon) * 6] = Vertex{ Vector3{x1, y1, z1}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1},  normal1 };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 1] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f} , Vector2{1,1}, normal2 };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 2] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 0.0f, 0.0f}, Vector2{1,1}, normal3 };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 3] = Vertex{ Vector3{x2, y2, z2}, Color{0.0f, 1.0f, 0.0f}, Vector2{1,1}, normal4 };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 4] = Vertex{ Vector3{x3, y3, z3}, Color{0.0f, 0.0f, 0.0f}, Vector2{1,1}, normal5 };
-                vertices[(lat * longitudeDivisions + lon) * 6 + 5] = Vertex{ Vector3{x4, y4, z4}, Color{1.0f, 0.0f, 0.0f}, Vector2{1,1}, normal6 };
+                for (int i = 0; i < 6; i++) {
+                    vertices[(lat * longitudeDivisions + lon) * 6 + i] = Vertex{ normals[i].Normalize()*radius, colors[i], Vector2{1,1}, normals[i].Normalize()};
+                }
             }
         }
 

@@ -35,7 +35,7 @@ int main() {
     //4.0f, 10.0f, 10 tube
    // GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
 
-    GameObject obj{ &Lightning, Mesh::createSphere(2.0,128, 128) };
+    GameObject obj{ &Lightning, Mesh::createSphere(2.0,10, 10) };
 
 
     // Define chain parameters
