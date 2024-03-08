@@ -186,10 +186,10 @@ public:
 
                 const Color colors[6]{
                     Color{1.0f, 0.0f, 0.0f},
-                    Color{0.0f, 0.0f, 0.0f},
-                    Color{0.0f, 0.0f, 0.0f},
                     Color{1.0f, 0.0f, 0.0f},
-                    Color{0.0f, 0.0f, 0.0f},
+                    Color{1.0f, 0.0f, 0.0f},
+                    Color{1.0f, 0.0f, 0.0f},
+                    Color{1.0f, 0.0f, 0.0f},
                     Color{1.0f, 0.0f, 0.0f},
                 };
 
