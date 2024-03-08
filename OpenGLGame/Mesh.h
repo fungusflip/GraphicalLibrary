@@ -176,25 +176,42 @@ public:
                 float phi2 = (lon + 1) * longitudeStep;
 
 
-                Vector3 normals[6];
-                normals[0] = Vector3{ sin(theta1) * cos(phi1), cos(theta1), sin(theta1) * sin(phi1) }; // left-bot
-                normals[1] = Vector3{ sin(theta2) * cos(phi1), cos(theta2), sin(theta2) * sin(phi1) }; // right-bot
-                normals[2] = Vector3{sin(theta1) * cos(phi2), cos(theta1), sin(theta1) * sin(phi2)}; // left-top
-                normals[3] = normals[2]; // left-top
-                normals[4] = normals[1]; // right-bot
-                normals[5] = Vector3{ sin(theta2) * cos(phi2), cos(theta2), sin(theta2) * sin(phi2) }; // right-top
+                Vector3 vertexnormals[6];
+
+                Vector3 surfacenormals[6];
+
+           
+
+                vertexnormals[0] = Vector3{ sin(theta1) * cos(phi1), cos(theta1), sin(theta1) * sin(phi1) }; // left-bot
+                vertexnormals[1] = Vector3{ sin(theta2) * cos(phi1), cos(theta2), sin(theta2) * sin(phi1) }; // right-bot
+                vertexnormals[2] = Vector3{sin(theta1) * cos(phi2), cos(theta1), sin(theta1) * sin(phi2)}; // left-top
+                vertexnormals[3] = vertexnormals[2]; // left-top
+                vertexnormals[4] = vertexnormals[1]; // right-bot
+                vertexnormals[5] = Vector3{ sin(theta2) * cos(phi2), cos(theta2), sin(theta2) * sin(phi2) }; // right-top
+
+                //
+                Vector3 triangleNormalOne = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6);
+
+                surfacenormals[0] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6); // left-bot
+                surfacenormals[1] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6); // right-bot
+                surfacenormals[2] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6); // left-top
+                surfacenormals[3] = vertexnormals[2]; // left-top
+                surfacenormals[4] = vertexnormals[1]; // right-bot
+                surfacenormals[5] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6);
+
+
 
                 const Color colors[6]{
                     Color{1.0f, 0.0f, 0.0f},
+                    Color{1.0f, 0.4f, 0.0f},
                     Color{1.0f, 0.0f, 0.0f},
-                    Color{1.0f, 0.0f, 0.0f},
-                    Color{1.0f, 0.0f, 0.0f},
-                    Color{1.0f, 0.0f, 0.0f},
-                    Color{1.0f, 0.0f, 0.0f},
+                    Color{1.0f, 0.4f, 0.0f},
+                    Color{1.0f, 0.4f, 0.0f},
+                    Color{1.0f, 0.4f, 0.0f},
                 };
 
                 for (int i = 0; i < 6; i++) {
-                    vertices[(lat * longitudeDivisions + lon) * 6 + i] = Vertex{ normals[i].Normalize()*radius, colors[i], Vector2{1,1}, normals[i].Normalize()};
+                    vertices[(lat * longitudeDivisions + lon) * 6 + i] = Vertex{ vertexnormals[i]*radius, colors[i], Vector2{1,1},vertexnormals[i].Normalize()};
                 }
             }
         }
