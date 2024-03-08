@@ -18,7 +18,7 @@ public:
     //More wizardry
     Vector3 position = Vector3(0, 0, 0);
     Vector3 rotation = Vector3(0, 0, 0);
-    Vector3 LightningPos = Vector3(0, 0, 0);
+    Vector3 LightningPos = Vector3(1, 2, 2);
 
     GameObject (Material* _material, const Mesh* _mesh, Texture*_texture = nullptr) {
         mesh = _mesh;

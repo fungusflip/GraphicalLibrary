@@ -53,7 +53,6 @@ int main() {
 
         obj.rotation.z = glfwGetTime() * 2;
 
-        obj.LightningPos.x = 1;
 
 
         window.clear();
