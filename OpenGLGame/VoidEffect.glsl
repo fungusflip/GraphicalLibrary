@@ -3,17 +3,18 @@ out vec4 pixelColor;
 uniform vec4 tintColor;
 in vec4 vertexColor;
 
-
-uniform vec3 LightningPos;
+uniform float time;
+uniform vec3 cameraPos;
 in vec3 FragPos;  
 in vec3 Normal;
 
 
 void main()
 {
-    vec3 lightColor = vec3(1,1,1);
+    vec3 cameraPos = vec3(8,2,5);
+    vec3 lightColor = sin(time) * vec3(0.3,0.8,0.8);
     vec3 norm = normalize(Normal);
-    vec3 lightDir = normalize(LightningPos - FragPos);  
+    vec3 lightDir = normalize(cameraPos - FragPos);  
 
      float ambientStrength = 0.2;
     vec3 ambient = ambientStrength * lightColor;
@@ -22,7 +23,9 @@ void main()
     float diff = max(dot(norm, lightDir), 0.0);
     vec3 diffuse = diff * lightColor;
    
-    vec3 result = (ambientStrength + diff) * lightColor * vertexColor.rgb;
+    float interval = sin(sin(time));
+
+    vec3 result = ((ambientStrength + diff) * lightColor * vertexColor.rgb);
 
     pixelColor = vec4(result, 1.0);
 

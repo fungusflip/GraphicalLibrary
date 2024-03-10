@@ -68,5 +68,6 @@
     <None Include="VertexShader.glsl" />
     <None Include="ColorLightningFragmentShader.glsl" />
     <None Include="blendTexturesFragmentShader.glsl" />
+    <None Include="VoidEffect.glsl" />
   </ItemGroup>
 </Project>

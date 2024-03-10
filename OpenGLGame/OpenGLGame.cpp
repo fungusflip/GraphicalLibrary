@@ -9,6 +9,7 @@
 #include "stb_image.h"
 #include "Texture.h"
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -26,16 +27,23 @@ int main() {
     Shader vertexShader{ "vertexShader.glsl", GL_VERTEX_SHADER };
     Shader textureShader{ "textureFragmentShader.glsl", GL_FRAGMENT_SHADER };
     Shader ColorShader{ "ColorLightningFragmentShader.glsl", GL_FRAGMENT_SHADER };
+    Shader voidShader{ "VoidEffect.glsl", GL_FRAGMENT_SHADER };
 
     // -------- Create Orange Shader Program (Render Pipeline) ---------
     Material Lightning{ vertexShader, ColorShader };
+
+    Material Lightning1{ vertexShader, voidShader };
+    
+
 
     //Material textured{ textured, ColorShader };
 
     //4.0f, 10.0f, 10 tube
    // GameObject obj{ &textured, Mesh::createCurvedCylinder(1.0, 20, 10) };
 
-    GameObject obj{ &Lightning, Mesh::createSphere(2.0,12, 12) };
+    GameObject obj{ &Lightning, Mesh::createSphere(2.0,24,24) };
+
+    GameObject obj2{ &Lightning1, Mesh::createSphere(2.0,24,24) };
 
 
     // Define chain parameters
@@ -50,14 +58,14 @@ int main() {
     {
         window.processInput();
 
-
-        obj.rotation.z = glfwGetTime() * 2;
-
-
+        obj.position.x = 0.4 + (sin(glfwGetTime()));
 
         window.clear();
 
         obj.render();
+
+
+
 
         window.present();
     }

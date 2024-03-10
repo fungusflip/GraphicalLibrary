@@ -44,6 +44,8 @@ class Mesh
 
     static std::vector<Vertex> cylinderVertices;
     static Mesh* cylinderMesh;
+
+
 public:
 
 
@@ -177,37 +179,36 @@ public:
 
 
                 Vector3 vertexnormals[6];
-
                 Vector3 surfacenormals[6];
-
-           
 
                 vertexnormals[0] = Vector3{ sin(theta1) * cos(phi1), cos(theta1), sin(theta1) * sin(phi1) }; // left-bot
                 vertexnormals[1] = Vector3{ sin(theta2) * cos(phi1), cos(theta2), sin(theta2) * sin(phi1) }; // right-bot
-                vertexnormals[2] = Vector3{sin(theta1) * cos(phi2), cos(theta1), sin(theta1) * sin(phi2)}; // left-top
+                vertexnormals[2] = Vector3{ sin(theta1) * cos(phi2), cos(theta1), sin(theta1) * sin(phi2) }; // left-top
                 vertexnormals[3] = vertexnormals[2]; // left-top
                 vertexnormals[4] = vertexnormals[1]; // right-bot
                 vertexnormals[5] = Vector3{ sin(theta2) * cos(phi2), cos(theta2), sin(theta2) * sin(phi2) }; // right-top
 
-                //
-                Vector3 triangleNormalOne = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6);
+                // Calculate average normal for the triangle
+                Vector3 triangleNormalOne = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2]) / 3;
 
-                surfacenormals[0] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6); // left-bot
-                surfacenormals[1] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6); // right-bot
-                surfacenormals[2] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6); // left-top
-                surfacenormals[3] = vertexnormals[2]; // left-top
-                surfacenormals[4] = vertexnormals[1]; // right-bot
-                surfacenormals[5] = (vertexnormals[0] + vertexnormals[1] + vertexnormals[2] + vertexnormals[3] + vertexnormals[4] + vertexnormals[5] / 6);
+                // Assign the same surface normal for each vertex in the triangle
+                surfacenormals[0] = triangleNormalOne;
+                surfacenormals[1] = triangleNormalOne;
+                surfacenormals[2] = triangleNormalOne;
 
+                // Repeat the same for other triangles if necessary
+                surfacenormals[3] = triangleNormalOne;
+                surfacenormals[4] = triangleNormalOne;
+                surfacenormals[5] = triangleNormalOne;
 
 
                 const Color colors[6]{
-                    Color{1.0f, 0.0f, 0.0f},
-                    Color{1.0f, 0.4f, 0.0f},
-                    Color{1.0f, 0.0f, 0.0f},
-                    Color{1.0f, 0.4f, 0.0f},
-                    Color{1.0f, 0.4f, 0.0f},
-                    Color{1.0f, 0.4f, 0.0f},
+                    Color{1.0f, 1.0f, 1.0f},
+                    Color{1.0f, 1.0f, 1.0f},
+                    Color{1.0f, 1.0f, 1.0f},
+                    Color{1.0f, 1.0f, 1.0f},
+                    Color{1.0f, 1.0f, 1.0f},
+                    Color{1.0f, 1.0f, 1.0f},
                 };
 
                 for (int i = 0; i < 6; i++) {

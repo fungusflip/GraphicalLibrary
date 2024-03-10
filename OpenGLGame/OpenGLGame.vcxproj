@@ -235,6 +235,7 @@
     <None Include="ColorLightningFragmentShader.glsl" />
     <None Include="textureFragmentShader.glsl" />
     <None Include="VertexShader.glsl" />
+    <None Include="VoidEffect.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
