@@ -54,7 +54,7 @@ int main() {
 
 
     // While the User doesn't want to Quit (X Button, Alt+F4)
-    while (!window.shouldClose()) // window -> window.window
+    while (!window  .shouldClose()) // window -> window.window
     {
         window.processInput();
 
