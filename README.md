@@ -31,7 +31,7 @@ Once the project is running, you should see the Phong Shading effect applied to 
 
 ## Example GIFs
 1. **Rotating Phong Shading Effect**:
-   ![Phong Shading]([path_to_phong_shading.gif](0c5111048398451bb53b69c44633e7db.gif))
+   ![Phong Shading](0c5111048398451bb53b69c44633e7db.gif)
    
 2. **Blinking Phong Shading Effect**:
    ![Phong Shading](path_to_phong_shading.gif)
