@@ -37,7 +37,7 @@ Once the project is running, you should see the Phong Shading effect applied to 
    ![Phong Shading](24db979903a00512ce8eade2767cbfd5.gif)
 
 3. **Surface Normal**:
-   ![Phong Shading](path_to_phong_shading.gif)
+   ![Phong Shading](5ce3bc9cb4ad9162c4c8983191104eca.gif)
 
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
