@@ -39,15 +39,15 @@ Once the project is running, you should see the Phong Shading effect applied to 
    
       ![Phong Shading](5ce3bc9cb4ad9162c4c8983191104eca.gif)
 
-3. **Moving Phong Shading Effect**:
-
-   
-      ![Phong Shading](Real1.gif)
-
-4. **Blinking Phong Shading Effect**:
+3. **Blinking Phong Shading Effect**:
 
    
       ![Phong Shading](Real.gif)
+
+ 4. **Moving Phong Shading Effect**:
+
+   
+      ![Phong Shading](Real1.gif)
 
 
 ## Contributing
