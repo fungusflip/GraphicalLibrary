@@ -30,17 +30,16 @@ Ensure the following dependencies are installed and properly configured:
 Once the project is running, you should see the Phong Shading effect applied to the sphere. Use this project as a reference or starting point for further exploration and experimentation with OpenGL and shading techniques.
 
 ## Example GIFs
-
-1. **Blinking Phong Shading Effect**:
-
-
-
-      ![Phong Shading](Real.gif)
-2. **Moving Phong Shading Effect**:
+1. **Moving Phong Shading Effect**:
 
 
 
       ![Phong Shading](Real1.gif)
+2. **Blinking Phong Shading Effect**:
+
+
+
+      ![Phong Shading](Real.gif)
     
 3. **Rotating Phong Shading Effect**:
 
