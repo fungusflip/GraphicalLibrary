@@ -47,7 +47,7 @@ Once the project is running, you should see the Phong Shading effect applied to 
 4. **Blinking Phong Shading Effect**:
 
    
-      ![Phong Shading](b77ee1cece702e75ebfee5d0d3841434.gif)
+      ![Phong Shading](Real.gif)
 
 
 ## Contributing
