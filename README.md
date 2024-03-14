@@ -34,16 +34,20 @@ Once the project is running, you should see the Phong Shading effect applied to 
 
 
       ![Phong Shading](0c5111048398451bb53b69c44633e7db.gif)
+2. **Surface Normal**:
+
    
+      ![Phong Shading](5ce3bc9cb4ad9162c4c8983191104eca.gif)
+
 3. **Moving Phong Shading Effect**:
 
    
       ![Phong Shading](24db979903a00512ce8eade2767cbfd5.gif)
 
-5. **Surface Normal**:
+4. **Blinking Phong Shading Effect**:
 
    
-      ![Phong Shading](5ce3bc9cb4ad9162c4c8983191104eca.gif)
+      ![Phong Shading](b77ee1cece702e75ebfee5d0d3841434.gif)
 
 
 ## Contributing
