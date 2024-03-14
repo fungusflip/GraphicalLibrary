@@ -1,14 +1,14 @@
-#Phong Shading Project
+# Phong Shading Project
 
-##Introduction
+## Introduction
 This project was created as a learning experience for working with OpenGL, C++, and concepts such as Phong Shading on a sphere. It aims to deepen understanding of geometry, vector math, and C++ programming.
 
-#Features
+# Features
 Implementation of Phong Shading on a sphere
 Utilizes OpenGL for rendering
 Written in C++
 
-#Getting Started
+# Getting Started
 To download and run the project:
 
 Clone the repository to your local machine:
@@ -26,10 +26,10 @@ C++ compiler supporting C++11 or later
 Usage
 Once the project is running, you should see the Phong Shading effect applied to the sphere. Use this project as a reference or starting point for further exploration and experimentation with OpenGL and shading techniques.
 
-#Contributing
+# Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, please feel free to open an issue or submit a pull request.
 
-#License
+# License
 This project is licensed under the MIT License.
 
 
