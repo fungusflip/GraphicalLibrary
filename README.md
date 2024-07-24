@@ -1,7 +1,7 @@
 # Phong Shading Project
 
 ## Introduction
-This project was created as a learning experience for working with OpenGL, C++, and concepts such as Phong Shading on a sphere. It aims to deepen understanding of geometry, vector math, and C++ programming.
+This project was created as a learning experience for working with OpenGL, C++, and concepts such as Phong Shading on a sphere. It aims to deepen understanding of geometry, 3D math, and C++ programming.
 
 # Features
 - Implementation of Phong Shading on a sphere
